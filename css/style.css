@@ -12,14 +12,17 @@ h2 {
 	font-size: 20px;
 }
 ul {
-	display: inline-block;
 	list-style-type: none
 }
 .word, .word li {
 	float: left;
 }
-.definitions ul {
+ul.definitions {
 	display: block;
+}
+.definitions li {
+	display: block;
+	overflow: auto;
 }
 .definition {
 	float: left;
@@ -43,6 +46,7 @@ ul {
 	font-weight: bold;
 }
 sub {
+	margin-top: 10px;
 	margin-left: 4px;
 	font-size: 9px;
 }

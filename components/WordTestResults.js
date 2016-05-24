@@ -1,26 +1,26 @@
 import React, { PropTypes } from 'react'
 import R from 'ramda'
+import DefinitionList from './DefinitionList'
 
-const isCorrectGuess = R.contains()
+const WordTestResults = ({ items, responses }) => {
 
-const WordTestResults = ({ words, guesses }) => (
-    <div>
-        <div className="correct">
-            {
-                R.intersection(guesses, words)
-            }
+    if (responses.length === 0) {
+        return ( <div>Nada</div>)
+    }
+
+    const isCorrect = word => R.indexOf(R.prop('word', word), responses) !== -1
+    const correctResponsess = R.filter(isCorrect, items)
+
+    return (
+        <div>
+            <DefinitionList items={correctResponsess} />
         </div>
-        <div className="wrong">
-            {
-                R.difference(guesses, words)
-            }
-        </div>
-    </div>
-)
+    )
+}
 
 WordTestResults.propTypes = {
-  words: PropTypes.array.isRequired,
-  guesses: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired,
+  responses: PropTypes.array.isRequired
 }
 
 export default WordTestResults

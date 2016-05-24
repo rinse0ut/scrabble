@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DefinitionList from '../components/DefinitionList'
+import WordTestResults from '../components/WordTestResults'
+import WordInput from '../components/WordInput'
 import letters from '../stores/letters.json'
 import threeLetterWords from '../stores/words-three-letter.json';
+import { addResponse } from '../actions'
 
 const items = [
     {
@@ -41,22 +43,16 @@ const items = [
 
 export default class App extends Component {
   render() {
-    const { settingsFilter, wordFilter } = this.props.state
+    const { dispatch }  = this.props.store
+    const { responses } = this.props.store.getState()
     return (
         <div>
             <h1>Scrabble Words</h1>
-            <DefinitionList items={items} />
+            <WordInput onSave={text => dispatch(addResponse(text))} />
+            <WordTestResults
+                items={threeLetterWords}
+                responses={responses} />
         </div>
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    state: state
-  }
-}
-
-export default connect(
-    mapStateToProps
-)(App)

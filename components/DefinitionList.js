@@ -9,7 +9,7 @@ const definition = item =>
 const DefinitionList = ({ items }) => {
     const definitions = R.map(definition, items)
     return (
-        <List items={definitions} className="defintions" />
+        <List items={definitions} className="definitions" />
     )
 }
 
