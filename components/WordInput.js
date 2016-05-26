@@ -25,6 +25,7 @@ class WordInput extends Component {
         <div className="well col-md-3 gutter-left">
             <h2>Word Input</h2>
             <input type="text"
+                className="form-control"
                 name="guess"
                 id="guess"
                 value={this.state.text}

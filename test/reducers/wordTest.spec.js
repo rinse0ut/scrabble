@@ -43,4 +43,12 @@ describe('Word Test reducer', () => {
     deepFreeze(action)
     expect(wordTest(stateBefore, action)).toEqual(stateAfter)
    })
+
+   it('getCorrectItems should return items that match the responses', () => {
+    expect(true).toBe(false)
+   })
+
+   it('getProgress should return the percentage of correct responses to correct answers', () => {
+    expect(true).toBe(false)
+   })
 })

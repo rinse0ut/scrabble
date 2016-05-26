@@ -12,13 +12,15 @@ h2 {
 	font-size: 20px;
 }
 ul {
-	list-style-type: none
+	list-style-type: none;
+	padding: 0;
 }
 .word, .word li {
 	float: left;
 }
 ul.definitions {
 	display: block;
+	margin-top: 20px;
 }
 .definitions li {
 	display: block;

@@ -4,16 +4,15 @@ import DefinitionList from './DefinitionList'
 
 const WordTestResults = ({ items, responses }) => {
 
-    if (responses.length === 0) {
-        return ( <div>Nada</div>)
-    }
+    const isCorrectResponse = response => R.indexOf(response, R.pluck('word', items)) !== -1
+    const correctResponsess = R.filter(isCorrectResponse, responses)
 
-    const isCorrect = word => R.indexOf(R.prop('word', word), responses) !== -1
-    const correctResponsess = R.filter(isCorrect, items)
+    const isCorrectItem = item => R.indexOf(R.prop('word', item), correctResponsess) !== -1
+    const correctItems = R.filter(isCorrectItem, items)
 
     return (
         <div>
-            <DefinitionList items={correctResponsess} />
+            <DefinitionList items={correctItems} />
         </div>
     )
 }

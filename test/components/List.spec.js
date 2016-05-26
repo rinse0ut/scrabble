@@ -31,7 +31,7 @@ describe('<List/>', () => {
         expect(node.text()).toBe(items[key])
     })
   });
-  it('should have the correct css class', () => {
+  it('should have a css class', () => {
     const { component } = setup()
     expect(component.hasClass('foobar')).toBe(true)
   })

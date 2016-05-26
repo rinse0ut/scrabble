@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import App from './containers/App'
-import wordTest from './reducers/wordTest'
+import { wordTest } from './reducers/wordTest'
 import './css/bootstrap.css'
 import './css/style.css'
 
@@ -15,7 +15,9 @@ console.log(store, store.getState())
 
 function render() {
   ReactDOM.render(
-    <App store={store} />,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
   )
 }
