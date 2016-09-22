@@ -4,6 +4,13 @@ import { shallow, mount } from 'enzyme'
 import { App } from '../../containers/App'
 import DefinitionList from '../../components/DefinitionList'
 import Definition from '../../components/Definition'
+import WordTextInput from '../../components/WordTextInput'
+
+const wordFilter = {
+    letters: ['A', 'A']
+}
+
+const prgoress = 0
 
 const initialItems = [
    {
@@ -20,24 +27,26 @@ const initialItems = [
    }
 ]
 
-function setup(correctItems = initialItems) {
+function setup(correctItems = initialItems, progress = progress) {
   const actions = {
-     onSave: expect.createSpy()
+     onSave: expect.createSpy(),
+     onComplete: expect.createSpy()
   }
   const component = mount(
-    <App {...actions} correctItems={correctItems} />
+    <App {...actions} wordFilter={wordFilter} correctItems={correctItems} progress={progress} />
   )
 
   return {
     component: component,
-    correctItems: correctItems
+    correctItems: correctItems,
+    actions: actions
   }
 }
 
 describe('<App/>', () => {
     it('should display a title', () => {
       const { correctItems, component } = setup()
-      expect(component.find('h1').text()).toBe('Scrabble Words')
+      expect(component.find('h1').text()).toBe('Scrabble Don')
     })
     it('should contain the correct responses in a <DefinitionList/> with <Definition/> components', () => {
       const { correctItems, component } = setup()
@@ -47,5 +56,18 @@ describe('<App/>', () => {
     it('should not display <DefinitionList/> when there are no correct responses', () => {
       const { component } = setup([])
       expect(component.find(DefinitionList).length).toBe(0)
+    })
+    it('should display <WordTextInput/> when progress less than 100', () => {
+      const { component } = setup()
+      expect(component.find(WordTextInput).length).toBe(1)
+    })
+    it('should display a next set button when the word set is complete', () => {
+      const { component, correctItems } = setup(initialItems, 100)
+      expect(component.find('.next').length).toBe(1)
+    })
+    it('should call onComplete when next button is pressed', () => {
+        const { component, actions } = setup(initialItems, 100)
+      component.find('.next').simulate('click')
+      expect(actions.onComplete).toHaveBeenCalled()
     })
 })

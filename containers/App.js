@@ -6,29 +6,28 @@ import ProgressBar from '../components/ProgressBar'
 import WordTextInput from '../components/WordTextInput'
 import FlashMessage from '../components/FlashMessage'
 import threeLetterWords from '../stores/words-three-letter.json';
-import { addResponse } from '../actions'
+import { addResponse, incrementLetter } from '../actions'
 import { isCorrectResponse, getCorrectItems, getProgress } from '../reducers/wordTest'
+import { filterWords } from '../reducers/wordFilter'
 
 export class App extends Component {
 
-    renderCorrectItems() {
-        const { correctItems } = this.props
+    next() {
+        this.props.onComplete()
+    }
 
-        if (R.isEmpty(correctItems)) {
-            return null
-        }
+    renderProgressBar() {
+        const { progress } = this.props
 
-        return (
-            <DefinitionList items={correctItems} />
-        )
+        if (progress === undefined) return
+
+        return <ProgressBar progress={progress} />
     }
 
     renderFlashMessage() {
         const { lastResponse, correctItems } = this.props
 
-        if (lastResponse === undefined) {
-            return null
-        }
+        if (lastResponse === undefined) return
 
         const isCorrectResponse = (response, items) => {
             return R.indexOf(response, R.pluck('word', items)) !== - 1
@@ -39,17 +38,42 @@ export class App extends Component {
             : <FlashMessage status="danger" message={lastResponse + ' is incorrect!'} />
     }
 
+    renderWordTextInput() {
+        const { onSave, wordFilter } = this.props
+        const startingLetters = wordFilter.letters
+        return  (
+            <div>
+                <WordTextInput startingLetters={startingLetters} onSave={onSave} />
+            </div>
+        )
+    }
+
+    renderCorrectItems() {
+        const { correctItems } = this.props
+
+        if (R.isEmpty(correctItems)) return
+
+        return (
+            <DefinitionList items={correctItems} />
+        )
+    }
+
     render() {
-        const { onSave, progress } = this.props
+        const { progress, onComplete } = this.props
+
+        // if (this.props.progress === 100) {
+        //     setTimeout(onComplete(), 3000)
+        // }
 
         return (
             <div>
-                <h1>Scrabble Words</h1>
-                <ProgressBar progress={progress} />
+                <h1>Scrabble Don</h1>
+                { this.renderProgressBar() }
                 { this.renderFlashMessage() }
-                <div>
-                    <WordTextInput onSave={onSave} />
-                </div>
+                { this.props.progress === 100 ?
+                    <button className="next" onClick={this.next.bind(this)}>Continue</button> :
+                    this.renderWordTextInput()
+                }
                 { this.renderCorrectItems() }
             </div>
         )
@@ -58,51 +82,19 @@ export class App extends Component {
 
 App.propTypes = {
   onSave: PropTypes.func.isRequired,
+  wordFilter: PropTypes.object.isRequired,
   correctItems: PropTypes.array.isRequired,
-  progress: PropTypes.number.isRequired,
+  progress: PropTypes.number,
   lastResponse: PropTypes.string
 }
 
-const items = [
-    {
-      "word": "AAH",
-      "def": "to exclaim in surprise [v -ED, -ING, -S]"
-    },
-    {
-      "word": "AAL",
-      "def": "an East Indian shrub [n -S]"
-    },
-    {
-      "word": "AAS",
-      "def": "AA, a rough cindery lava [n]"
-    },
-    {
-      "word": "ABA",
-      "def": "a Syrian cloth, also ABAYA [n -S]"
-    },
-    {
-      "word": "ABB",
-      "def": "a wool yarn [n -S]"
-    },
-    {
-      "word": "ABO",
-      "def": "an aborigine [n -S]"
-    },
-    {
-      "word": "ABS",
-      "def": "AB, an abdominal muscle [n]"
-    },
-    {
-      "word": "ABY",
-      "def": "to pay a penalty [v ABOUGHT, ABYING, ABYS or ABIES]"
-    },
-]
-
 const mapStateToProps = (state) => {
+  const items = filterWords(state.wordFilter, threeLetterWords)
   return {
-    correctItems: getCorrectItems(state.responses, items),
-    progress: getProgress(state.responses, items),
-    lastResponse: R.last(state.responses)
+    wordFilter: state.wordFilter,
+    correctItems: getCorrectItems(state.wordTest.responses, items),
+    progress: getProgress(state.wordTest.responses, items),
+    lastResponse: R.last(state.wordTest.responses)
   }
 }
 
@@ -110,7 +102,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSave: (text) => {
         dispatch(addResponse(text))
-    }
+    },
+    onComplete: () => dispatch(incrementLetter(1))
   }
 }
 
