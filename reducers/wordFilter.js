@@ -1,16 +1,15 @@
 import R from 'ramda'
+import threeLetterWords from '../stores/words-three-letter.json';
 
 const initialState = {
-    letters: ['A', 'A']
+    letters: ['Z', 'A']
 }
 
 export const wordFilter = (state = initialState, action) => {
     switch (action.type) {
-        case 'INCREMENT_LETTER':
-            const letter = state.letters[action.key]
-            const nextLetter = String.fromCharCode(letter.charCodeAt(0) + 1)
+        case 'SET_LETTER':
             return {
-                letters: R.update(action.key, nextLetter, state.letters)
+                letters: R.update(action.key, action.value, state.letters)
             }
         default:
             return state
@@ -27,9 +26,3 @@ export const filterWords = (wordFilter, items) => {
 
     return R.filter(hasMatch, items)
 }
-
-// const getNextValidLetter = letter => {
-//     while (R.empty) {
-//
-//     }
-// }

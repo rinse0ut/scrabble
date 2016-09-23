@@ -26,7 +26,7 @@ describe('Word Filter reducer', () => {
     expect(wordFilter(stateBefore, action)).toEqual(stateAfter)
   })
 
-  it('filterWords should filter a word list by word filter', () => {
+  it('filterWords should filter a word list by starting letters', () => {
     const wordFilter = {
         letters: ['A', 'A']
     }
@@ -71,34 +71,20 @@ describe('Word Filter reducer', () => {
     expect(filterWords(wordFilter, words)).toEqual(expected)
   })
 
-  it('should handle INCREMENT_LETTER_FILTER letter filter', () => {
+  it('should handle SET_LETTER letter filter', () => {
     var stateBefore = {
       letters: ['A', 'A']
     }
     var action = {
-        type: 'INCREMENT_LETTER',
-        key: 1
+        type: 'SET_LETTER',
+        key: 1,
+        value: 'B'
     }
     var stateAfter = {
       letters: ['A', 'B']
     }
-    // deepfreeze(stateBefore)
-    // deepfreeze(action)
+    deepFreeze(stateBefore)
+    deepFreeze(action)
     expect(wordFilter(stateBefore, action)).toEqual(stateAfter)
-
-    // var stateBefore = {
-    //   letters: ['A', 'Z']
-    // }
-    // var action = {
-    //     type: 'INCREMENT_LETTER_FILTER',
-    //     key: 1
-    // }
-    // var stateAfter = {
-    //   letters: ['A', 'a']
-    // }
-    // // deepfreeze(stateBefore)
-    // // deepfreeze(action)
-    // expect(wordFilter(stateBefore, action)).toEqual(stateAfter)
   })
-
 })

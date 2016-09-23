@@ -6,11 +6,11 @@ import DefinitionList from '../../components/DefinitionList'
 import Definition from '../../components/Definition'
 import WordTextInput from '../../components/WordTextInput'
 
-const wordFilter = {
+const initialWordFilter = {
     letters: ['A', 'A']
 }
 
-const prgoress = 0
+const intialProgress = 0
 
 const initialItems = [
    {
@@ -27,7 +27,7 @@ const initialItems = [
    }
 ]
 
-function setup(correctItems = initialItems, progress = progress) {
+function setup(correctItems = initialItems, progress = intialProgress, wordFilter = initialWordFilter) {
   const actions = {
      onSave: expect.createSpy(),
      onComplete: expect.createSpy()
@@ -39,6 +39,7 @@ function setup(correctItems = initialItems, progress = progress) {
   return {
     component: component,
     correctItems: correctItems,
+    wordFilter: wordFilter,
     actions: actions
   }
 }
@@ -66,8 +67,15 @@ describe('<App/>', () => {
       expect(component.find('.next').length).toBe(1)
     })
     it('should call onComplete when next button is pressed', () => {
-        const { component, actions } = setup(initialItems, 100)
+      const { component, actions } = setup(initialItems, 100)
       component.find('.next').simulate('click')
       expect(actions.onComplete).toHaveBeenCalled()
+    })
+    it('should iterate to the next valid letter filter when onComplete is called', () => {
+      const { component, actions, wordFilter } = setup(initialItems, 100, ['A', 'A'])
+      component.find('.next').simulate('click')
+      expect(actions.onComplete).toHaveBeenCalled()
+      expect(component.find(WordTextInput).length).toBe(1)
+      console.log(component.debug())
     })
 })

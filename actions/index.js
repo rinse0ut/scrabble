@@ -5,9 +5,10 @@ export function addResponse(response){
   }
 }
 
-export function incrementLetter(key){
+export function setLetter(key, value){
   return {
-    type: 'INCREMENT_LETTER',
-    key: key
+    type: 'SET_LETTER',
+    key: key,
+    value: value
   }
 }

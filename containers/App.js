@@ -6,14 +6,14 @@ import ProgressBar from '../components/ProgressBar'
 import WordTextInput from '../components/WordTextInput'
 import FlashMessage from '../components/FlashMessage'
 import threeLetterWords from '../stores/words-three-letter.json';
-import { addResponse, incrementLetter } from '../actions'
+import { addResponse, setLetter } from '../actions'
 import { isCorrectResponse, getCorrectItems, getProgress } from '../reducers/wordTest'
 import { filterWords } from '../reducers/wordFilter'
 
 export class App extends Component {
 
     next() {
-        this.props.onComplete()
+        this.props.onComplete(this.props.wordFilter, threeLetterWords)
     }
 
     renderProgressBar() {
@@ -103,7 +103,20 @@ const mapDispatchToProps = (dispatch) => {
     onSave: (text) => {
         dispatch(addResponse(text))
     },
-    onComplete: () => dispatch(incrementLetter(1))
+    onComplete: (wordFilter, wordList) => {
+
+        const findNextLetter = letter => {
+            let words = []
+            while (words.length === 0) {
+               letter = String.fromCharCode(letter.charCodeAt(0) + 1)
+               words = filterWords( { letters: [wordFilter.letters[0], letter] }, wordList)
+
+            }
+            return letter
+        }
+
+        dispatch(setLetter(1, findNextLetter(wordFilter.letters[1])))
+    }
   }
 }
 

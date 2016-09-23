@@ -1,7 +1,7 @@
-
-export function incrementLetter(key){
+export function setLetter(key, value){
   return {
-    type: 'INCREMENT_LETTER',
+    type: 'SET_LETTER',
     key: key
+    value: value
   }
 }
