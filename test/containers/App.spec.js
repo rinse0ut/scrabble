@@ -71,11 +71,11 @@ describe('<App/>', () => {
       component.find('.next').simulate('click')
       expect(actions.onComplete).toHaveBeenCalled()
     })
-    it('should iterate to the next valid letter filter when onComplete is called', () => {
-      const { component, actions, wordFilter } = setup(initialItems, 100, ['A', 'A'])
-      component.find('.next').simulate('click')
-      expect(actions.onComplete).toHaveBeenCalled()
-      expect(component.find(WordTextInput).length).toBe(1)
-      console.log(component.debug())
-    })
+    // it('should iterate to the next valid letter filter when onComplete is called', () => {
+    //   const { component, actions, wordFilter } = setup(initialItems, 100, ['A', 'A'])
+    //   component.find('.next').simulate('click')
+    //   expect(actions.onComplete).toHaveBeenCalled()
+    //   expect(component.find(WordTextInput).length).toBe(1)
+    //   console.log(component.debug())
+    // })
 })

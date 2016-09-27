@@ -1,7 +1,7 @@
 /**
  * Mocking client-server processing
  */
-import _words from './words-two-letter.json'
+import _words from './words.json'
 
 const TIMEOUT = 100
 

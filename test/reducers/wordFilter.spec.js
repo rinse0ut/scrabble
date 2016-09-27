@@ -3,19 +3,6 @@ import { wordFilter, filterWords} from '../../reducers/wordFilter'
 import deepFreeze from 'deep-freeze'
 import R from 'ramda'
 
-describe('R.test', () => {
-  it('should find a word', () => {
-    const word = 'AAH'
-    expect(R.test(/^AA/, word)).toEqual(true)
-  })
-  it('should use regex', () => {
-    const word = 'AAH'
-    const letters = 'AA'
-    const regex = new RegExp('^' + letters)
-    expect(R.test(regex, word)).toEqual(true)
-  })
-})
-
 describe('Word Filter reducer', () => {
   it('should handle inital state', () => {
     const stateBefore = undefined

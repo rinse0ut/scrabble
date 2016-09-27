@@ -7,4 +7,17 @@ export const words = (state = [], action) => {
     }
 }
 
+// export function getWordsByLength(state) {
+//   return (len) => state.words.filter((item) => item.word.length == len)
+// }
+
+export function getWordsByLength(state) {
+  return (len) => {
+      let r = state.words.filter((item) => {
+          return (item.word.length == len)
+      })
+      return r
+  }
+}
+
 export default words

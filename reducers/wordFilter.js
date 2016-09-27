@@ -2,7 +2,7 @@ import R from 'ramda'
 import threeLetterWords from '../stores/words-three-letter.json';
 
 const initialState = {
-    letters: ['Z', 'A']
+    letters: ['A', 'A']
 }
 
 export const wordFilter = (state = initialState, action) => {
