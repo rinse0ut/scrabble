@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import R from 'ramda'
 import DefinitionList from '../components/DefinitionList'
-import { words, getWordsByLength } from '../reducers/words'
+import { words, getWordsByLength, getSections } from '../reducers/words'
 
 export class WordList extends Component {
 
     render() {
         const { words } = this.props
 
-        console.log('WORDS', words(this.props.route.len))
+        console.log('TWO LETTER WORD SECTIONS', getSections(R.pluck('word', words(2)), 14))
 
         return (
             <div>
