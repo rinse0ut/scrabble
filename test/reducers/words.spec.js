@@ -1,5 +1,5 @@
 import expect from 'expect'
-import { words, filterWords, getSections } from '../../reducers/words'
+import { words, filterWords, getWordsByLength, getTwoLetterWordSections, getThreeLetterWordSections } from '../../reducers/words'
 import deepFreeze from 'deep-freeze'
 import R from 'ramda'
 
@@ -48,14 +48,49 @@ describe('Words reducer', () => {
       expect(expected).toEqual(actual)
   })
 
-  it('should get words by section', () => {
+  it('should get words by length', () => {
+          const items = [
+              {
+                  word: "AA",
+                  def: "Definition"
+              },
+              {
+                  word: "DO",
+                  def: "Definition"
+              },
+              {
+                  word: "ZAP",
+                  def: "Definition"
+              }
+          ]
+          const expected = ['AA', 'DO']
+
+      const actual = getWordsByLength(items, 2)
+
+      expect(expected).toEqual(actual)
+  })
+
+  it('should get two letter words by section', () => {
       const words = ['AA', 'AB', 'AD', 'AE', 'AG', 'AH', 'AI', 'BA', 'BE', 'BO', 'BY', 'DE', 'DO', 'ED', 'EF', 'EH', 'EL', 'EM', 'EN']
+      const expected = {
+          'A': ['AA', 'AB', 'AD', 'AE', 'AG', 'AH', 'AI'],
+          'B - D': ['BA', 'BE', 'BO', 'BY', 'DE', 'DO'],
+          'E': ['ED', 'EF', 'EH', 'EL', 'EM', 'EN']
+      }
+      const actual = getTwoLetterWordSections(words, 6)
+
+      expect(expected).toEqual(actual)
+  })
+
+  it('should get three letter words by section', () => {
+      const words = ['PYA', 'PYE', 'PYX', 'QAT', 'QIS', 'RAD', 'RAG', 'RAH', 'RAI', 'RAM', 'RAN', 'RAP', 'REB', 'REC']
       const expected = [
-          ['AA', 'AB', 'AD', 'AE', 'AG', 'AH', 'AI'],
-          ['BA', 'BE', 'BO', 'BY', 'DE', 'DO'],
-          ['ED', 'EF', 'EH', 'EL', 'EM', 'EN']
+          ['PYA', 'PYE', 'PYX'],
+          ['QAT', 'QIS'],
+          ['RAD', 'RAG', 'RAH', 'RAI', 'RAM', 'RAN', 'RAP'],
+          ['REB', 'REC']
       ]
-      const actual = getSections(words, 6)
+      const actual = getThreeLetterWordSections(words, 2)
 
       expect(expected).toEqual(actual)
   })

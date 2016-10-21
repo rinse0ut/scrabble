@@ -37,7 +37,7 @@ export class Quiz extends Component {
                 {
                     progress === 100 ?
                         <button className="next" onClick={this.next.bind(this)}>Continue</button> :
-                        <WordTextInput startingLetters={startingLetters} onSave={onSave} />
+                        <WordTextInput key="foo" startingLetters={startingLetters} onSave={onSave} />
                 }
                 {
                     R.isEmpty(correctItems) ?
