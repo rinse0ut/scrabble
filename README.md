@@ -9,7 +9,7 @@ An App for learning two and three letter scrabble words using Redux, React and R
 npm install
 
 ##Tests
-npm cross-env NODE_ENV=test mocha --recursive --compilers js:babel-register
+npm test
 
 ##Run
 npm start
