@@ -3,21 +3,20 @@ import R from 'ramda'
 
 const listItem   = (item, key) => <li key ={key}>{item}</li>
 const mapIndexed = R.addIndex(R.map)
-const listItems  = mapIndexed(listItem)
+const list       = mapIndexed(listItem)
 
-const List = ({ items, className }) => {
+const List = ({ items }) => {
     return (
-        <ul className={className}>
+        <ul>
             {
-                listItems(items)
+                list(items)
             }
         </ul>
     )
 }
 
 List.propTypes = {
-  items: PropTypes.array.isRequired,
-  className: PropTypes.string.isRequired
+  items: PropTypes.array.isRequired
 }
 
 export default List

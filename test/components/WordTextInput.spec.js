@@ -39,8 +39,8 @@ describe('<WordTextInput/>', () => {
     component.find('input').simulate('keypress', { which: 13, target: { value: 'H'} })
     expect(component.state('text')).toBe('')
   })
-  it('should display starting <Letter/> components', () => {
-    const { component, startingLetters } = setup()
-    expect(component.find(Letter).length).toBe(startingLetters.length)
-  });
+  // it('should display starting <Letter/> components', () => {
+  //   const { component, startingLetters } = setup()
+  //   expect(component.find(Letter).length).toBe(startingLetters.length)
+  // });
 })
