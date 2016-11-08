@@ -8,7 +8,7 @@ function setup(value = 0) {
   const items = ['Foo', 'Bar', 'Baz']
 
   const component = shallow(
-    <List items={items} className="foobar"/>
+    <List items={items} />
   )
 
   return {
@@ -21,7 +21,7 @@ function setup(value = 0) {
 
 describe('<List/>', () => {
   it('should display a list of items', () => {
-    const { ul, li, items } = setup()
+    const { component, ul, li, items } = setup()
 
     expect(ul.length).toBe(1)
     expect(li.length).toBe(3)
@@ -31,8 +31,4 @@ describe('<List/>', () => {
         expect(node.text()).toBe(items[key])
     })
   });
-  it('should have a css class', () => {
-    const { component } = setup()
-    expect(component.hasClass('foobar')).toBe(true)
-  })
 })

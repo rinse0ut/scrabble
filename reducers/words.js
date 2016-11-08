@@ -8,21 +8,19 @@ export const words = (state = [], action) => {
             return state
     }
 }
-//
-// export function getWordsByLength(state) {
-//   return (len) => {
-//       let r = state.words.filter((item) => {
-//           return (item.word.length == len)
-//       })
-//       return r
-//   }
-// }
+
+export default words
+
+export const getLetterIndex = R.compose(R.uniq, R.map(R.head), R.pluck('word'))
+
+const wordStartsWith = R.curry((letter, item) => R.equals(R.head(item.word), letter))
+
+export const wordsStartingWith = R.curry((items, letter) => R.filter(wordStartsWith(letter), items))
+// export const wordsStartingWith = (letter) => R.pipe(R.filter(wordStartsWith(letter)))  // Point Free?
 
 export function getWordsByLength(items, len) {
   return R.pluck('word', items.filter((item) => item.word.length == len))
 }
-
-export default words
 
 export const filterWords = (startingLetters, items) => {
     const beginsWith = R.join('', startingLetters)

@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import R from 'ramda'
 import Letter from './Letter'
 
-const letter = l =>
-    <Letter letter={l} />
+const letter = (l, k)  =>
+    <Letter letter={l} key={k} />
 
 class WordTextInput extends Component {
   constructor(props) {
@@ -26,10 +26,10 @@ class WordTextInput extends Component {
   }
 
   render() {
-    const letters = R.map(letter, this.props.startingLetters)
+    const letters = R.mapObjIndexed(letter, this.props.startingLetters)
     return (
         <div>
-            <span className="starting-letters">{ letters }</span>
+            <span className="starting-letters"></span>
             <input type="text"
                 className="form-control"
                 placeholder="?"

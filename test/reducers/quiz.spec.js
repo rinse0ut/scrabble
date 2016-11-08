@@ -5,33 +5,12 @@ import deepFreeze from 'deep-freeze'
 describe('Quiz reducer', () => {
 
     const initialState = {
-      wordLen: null,
       startingLetters: ['A'],
       responses: []
     }
 
     it('should handle the initial state', () => {
       expect(quiz(undefined, {})).toEqual(initialState)
-    })
-
-    it('should handle SET_WORD_LENGTH action', () => {
-        var stateBefore = {
-            wordLen: null,
-            startingLetters: [],
-            responses: []
-        }
-        var action = {
-            type: 'SET_WORD_LENGTH',
-            length: 2
-        }
-        var stateAfter = {
-            wordLen: 2,
-            startingLetters: [],
-            responses: []
-        }
-        deepFreeze(stateBefore)
-        deepFreeze(action)
-        expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
 
     it('should handle SET_STARTING_LETTER action', () => {
