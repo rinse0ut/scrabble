@@ -21,38 +21,13 @@ export const quiz = (state = initialState, action) => {
 
 export default quiz
 
-const getWord  = R.prop('word')
-const getWords = R.pluck('word')
+const word = R.prop('word')
+const words = R.pluck('word')
 
-// export const getCorrectItems = () => [
-//     {
-//         word: "AA",
-//         def: "Definition"
-//     },
-//     {
-//         word: "AB",
-//         def: "Definition"
-//     }
-// ]
+export const isCorrectResponse = (word, items) => R.contains(word, words(items))
 
-// export const getCorrectItems = () => [
-//     {
-//         word: "AA",
-//         def: "Definition"
-//     },
-//     {
-//         word: "AB",
-//         def: "Definition"
-//     }
-// ]
+export const hasMatchingResponse = R.curry((responses, item) => R.contains(word(item), responses))
 
-export const getCorrectItems = (responses, items) => {
-    const correctResponsess = R.intersection(responses, getWords(items))
-    const isCorrectItem     = item => R.indexOf(getWord(item), correctResponsess) !== -1
-    return R.filter(isCorrectItem, items)
-}
+export const correctItems = (responses, items) => R.filter(hasMatchingResponse(responses), items)
 
-export const getProgress = (responses, items) => {
-    const correctItems = getCorrectItems(responses, items)
-    return (R.length(correctItems) / R.length(items)) * 100
-}
+export const percentage = (a, b) => (R.length(a) / R.length(b)) * 100

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import R from 'ramda'
 import List from '../components/List'
-import { getLetterIndex } from '../reducers/words'
+import { letterIndex } from '../reducers/words'
 import { setLetter } from '../actions'
 
 export class LetterIndex extends Component {
@@ -31,12 +31,12 @@ export default LetterIndex
 
 // const mapStateToProps = R.assoc('letters', ['Z'])
 // const props = (letters) => { letters: letters }
-// const mapStateToProps = R.compose(props, getLetterIndex, R.pluck('words'))
-// const mapStateToProps = R.compose(R.assoc('letters', R.__, {}), getLetterIndex)
+// const mapStateToProps = R.compose(props, letterIndex, R.pluck('words'))
+// const mapStateToProps = R.compose(R.assoc('letters', R.__, {}), letterIndex)
 
 const mapStateToProps = (state) => {
   return {
-      letters: getLetterIndex(state.words)
+      letters: letterIndex(state.words)
   }
 }
 

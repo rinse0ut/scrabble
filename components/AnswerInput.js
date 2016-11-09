@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import R from 'ramda'
 import Letter from './Letter'
 
-const letter = (l, k)  =>
-    <Letter letter={l} key={k} />
-
 class AnswerInput extends Component {
   constructor(props) {
     super(props)
@@ -26,7 +23,6 @@ class AnswerInput extends Component {
   }
 
   render() {
-    console.log('AnswerInput:STARTING_LETTER', this.props.startingLetter)
     return (
         <div>
             <span className="starting-letters">

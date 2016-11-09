@@ -1,5 +1,5 @@
 import expect from 'expect'
-import { quiz, getCorrectItems, getProgress, getSections } from '../../reducers/quiz'
+import { quiz, isCorrectResponse, hasMatchingResponse, correctItems, percentage } from '../../reducers/quiz'
 import deepFreeze from 'deep-freeze'
 
 describe('Quiz reducer', () => {
@@ -65,6 +65,41 @@ describe('Quiz reducer', () => {
         deepFreeze(action)
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
+
+    it('should check if a response is correct', () => {
+        var response = 'AA'
+        var items = [
+            {
+                word: "AA",
+                def: "Definition"
+            },
+            {
+                word: "AB",
+                def: "Definition"
+            },
+            {
+                word: "AD",
+                def: "Definition"
+            },
+        ]
+        var expected = true
+        var actual = isCorrectResponse(response, items)
+
+        expect(expected).toEqual(actual)
+    })
+
+    it('should check if an item has a matching response', () => {
+        const responses = ['AA', 'QI', 'ZA']
+        const item = {
+            word: "AA",
+            def: "Definition"
+        }
+        const expected = true
+        const actual = hasMatchingResponse(responses, item)
+
+        expect(expected).toEqual(actual)
+    })
+
     it('should get correct items by quiz responses', () => {
         const responses = ['AA', 'AB']
         const items = [
@@ -91,33 +126,16 @@ describe('Quiz reducer', () => {
                 def: "Definition"
             }
         ]
-        const actual = getCorrectItems(responses, items)
+        const actual = correctItems(responses, items)
 
         expect(expected).toEqual(actual)
     })
 
-    it('should get progress by quiz responses', () => {
-        const responses = ['AA', 'AB']
-        const items = [
-            {
-                word: "AA",
-                def: "Definition"
-            },
-            {
-                word: "AB",
-                def: "Definition"
-            },
-            {
-                word: "AD",
-                def: "Definition"
-            },
-            {
-                word: "AF",
-                def: "Definition"
-            },
-        ]
+    it('should calculate percentage', () => {
+        const a = ['x', 'y']
+        const b = ['a', 'b', 'c', 'd']
         const expected = 50
-        const actual = getProgress(responses, items)
+        const actual = percentage(a, b)
 
         expect(expected).toEqual(actual)
     })

@@ -5,18 +5,18 @@ import AnswerInput from '../../components/AnswerInput'
 import Letter from '../../components/Letter'
 
 function setup() {
-  const startingLetters = ['A', 'A']
+  const startingLetter = 'A'
   const actions = {
       onSave: expect.createSpy()
   }
   const component = shallow(
-    <AnswerInput {...actions} startingLetters={startingLetters} />
+    <AnswerInput {...actions} startingLetter={startingLetter} />
   )
 
   return {
     component: component,
     actions: actions,
-    startingLetters, startingLetters
+    startingLetter, startingLetter
   }
 }
 
@@ -32,7 +32,7 @@ describe('<AnswerInput/>', () => {
   it('should call onSave on return key press', () => {
     const { component, actions} = setup()
     component.find('input').simulate('keypress', { which: 13, target: { value: 'H'} })
-    expect(actions.onSave).toHaveBeenCalledWith('AAH')
+    expect(actions.onSave).toHaveBeenCalledWith('AH')
   })
   it('should reset state on return key press', () => {
     const { component, actions} = setup()

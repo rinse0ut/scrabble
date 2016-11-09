@@ -12,7 +12,7 @@ import WordList from './containers/WordList'
 import Index from './components/Index'
 import About from './components/About'
 import scrabbleApp from './reducers'
-import { getWords, getLetterIndex } from './actions'
+import { getWords, letterIndex } from './actions'
 import './css/bootstrap.css'
 import './css/style.css'
 

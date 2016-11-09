@@ -4,13 +4,14 @@ import { shallow, mount } from 'enzyme'
 import { Quiz } from '../../containers/Quiz'
 import DefinitionList from '../../components/DefinitionList'
 import Definition from '../../components/Definition'
-import WordTextInput from '../../components/WordTextInput'
+import AnswerInput from '../../components/AnswerInput'
 import ProgressBar from '../../components/ProgressBar'
 import FlashMessage from '../../components/FlashMessage'
 
 const initialProps = {
-    startingLetters: ['A'],
+    startingLetter: 'A',
     progress: 0,
+    responses: ['AA', 'AB', 'AC'],
     correctItems: [
        {
          "word": "AA",
@@ -20,8 +21,7 @@ const initialProps = {
          "word": "AB",
          "def": "Definition 2"
        }
-   ],
-   lastResponse: 'AA'
+   ]
 }
 
 function setup(props = initialProps) {
@@ -46,22 +46,24 @@ describe('<Quiz/>', () => {
       const { correctItems, component } = setup()
       expect(component.find('h1').text()).toBe('Scrabble Quiz')
     })
-    it('should display <WordTextInput/> when progress less than 100', () => {
+    it('should display <AnswerInput/> when progress less than 100', () => {
       const { component } = setup()
-      expect(component.find(WordTextInput).length).toBe(1)
+      expect(component.find(AnswerInput).length).toBe(1)
     })
     it('should display <ProgressBar/>', () => {
       var { component } = setup()
       expect(component.find(ProgressBar).length).toBe(1)
     })
-    it('should not display <DefinitionList/> when there are no correct responses', () => {
-      const { component } = setup({
-          startingLetters: ['A'],
-          progress: 0,
-          correctItems: []
-      })
-      expect(component.find(DefinitionList).length).toBe(0)
-    })
+
+    // it('should not display <DefinitionList/> when there are no correct responses', () => {
+    //   const { component } = setup({
+    //       startingLetter: A,
+    //       progress: 0,
+    //       correctItems: []
+    //   })
+    //   expect(component.find(DefinitionList).length).toBe(0)
+    // })
+    // 
     it('should display <DefinitionList/> containing the correct responses in <Definition/> components', () => {
       const { component, props } = setup()
       expect(component.find(DefinitionList).length).toBe(1)
@@ -85,7 +87,7 @@ describe('<Quiz/>', () => {
     //   const { component, actions, wordFilter } = setup(initialItems, 100, ['A', 'A'])
     //   component.find('.next').simulate('click')
     //   expect(actions.onComplete).toHaveBeenCalled()
-    //   expect(component.find(WordTextInput).length).toBe(1)
+    //   expect(component.find(AnswerInput).length).toBe(1)
     //   console.log(component.debug())
     // })
 })
