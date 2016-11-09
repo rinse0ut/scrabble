@@ -22,10 +22,9 @@ export function addResponse(response){
   }
 }
 
-export function setLetter(key, value){
+export function setLetter(letter){
   return {
-    type: 'SET_LETTER',
-    key: key,
-    value: value
+    type: 'SET_STARTING_LETTER',
+    letter: letter
   }
 }

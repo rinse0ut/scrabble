@@ -5,7 +5,7 @@ import Letter from './Letter'
 const letter = (l, k)  =>
     <Letter letter={l} key={k} />
 
-class WordTextInput extends Component {
+class AnswerInput extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,7 +26,7 @@ class WordTextInput extends Component {
   }
 
   render() {
-    console.log('WordTextInput:STARTING_LETTER', this.props.startingLetter)
+    console.log('AnswerInput:STARTING_LETTER', this.props.startingLetter)
     return (
         <div>
             <span className="starting-letters">
@@ -46,9 +46,9 @@ class WordTextInput extends Component {
   }
 }
 
-WordTextInput.propTypes = {
+AnswerInput.propTypes = {
   onSave: PropTypes.func.isRequired,
   startingLetter: PropTypes.string.isRequired
 }
 
-export default WordTextInput
+export default AnswerInput

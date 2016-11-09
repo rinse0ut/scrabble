@@ -5,7 +5,7 @@ import deepFreeze from 'deep-freeze'
 describe('Quiz reducer', () => {
 
     const initialState = {
-      startingLetters: ['A'],
+      startingLetter: null,
       responses: []
     }
 
@@ -15,18 +15,15 @@ describe('Quiz reducer', () => {
 
     it('should handle SET_STARTING_LETTER action', () => {
         var stateBefore = {
-            wordLen: null,
-            startingLetters: [],
+            startingLetter: [],
             responses: []
         }
         var action = {
             type: 'SET_STARTING_LETTER',
-            key: 0,
             letter: 'A'
         }
         var stateAfter = {
-            wordLen: null,
-            startingLetters: ['A'],
+            startingLetter: 'A',
             responses: []
         }
         deepFreeze(stateBefore)
@@ -34,8 +31,7 @@ describe('Quiz reducer', () => {
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
 
         var stateBefore = {
-            wordLen: null,
-            startingLetters: ['A'],
+            startingLetter: 'A',
             responses: []
         }
         var action = {
@@ -44,8 +40,7 @@ describe('Quiz reducer', () => {
             letter: 'B'
         }
         var stateAfter = {
-            wordLen: null,
-            startingLetters: ['B'],
+            startingLetter: 'B',
             responses: []
         }
         deepFreeze(stateBefore)
@@ -55,8 +50,7 @@ describe('Quiz reducer', () => {
 
     it('should handle ADD_RESPONSE action', () => {
         var stateBefore = {
-            wordLen: 2,
-            startingLetters: ['A'],
+            startingLetter: 'A',
             responses: []
         }
         var action = {
@@ -64,8 +58,7 @@ describe('Quiz reducer', () => {
             response: 'AA'
         }
         var stateAfter = {
-            wordLen: 2,
-            startingLetters: ['A'],
+            startingLetter: 'A',
             responses: ['AA']
         }
         deepFreeze(stateBefore)

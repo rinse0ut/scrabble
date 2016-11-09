@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import R from 'ramda'
-import WordTextInput from '../components/WordTextInput'
+import AnswerInput from '../components/AnswerInput'
 import ProgressBar from '../components/ProgressBar'
 import FlashMessage from '../components/FlashMessage'
 import DefinitionList from '../components/DefinitionList'
 import Definition from '../components/Definition'
 import { addResponse } from '../actions'
 import { getCorrectItems, getProgress } from '../reducers/quiz'
-import { filterWords } from '../reducers/words'
+import { wordsStartingWith } from '../reducers/words'
+
 
 export class Quiz extends Component {
 
@@ -27,7 +28,7 @@ export class Quiz extends Component {
     }
 
     render() {
-        const { startingLetters, progress, correctItems, onSave } = this.props
+        const { startingLetter, progress, correctItems, onSave } = this.props
 
         return (
             <div>
@@ -37,7 +38,7 @@ export class Quiz extends Component {
                 {
                     progress === 100 ?
                         <button className="next" onClick={this.next.bind(this)}>Continue</button> :
-                        <WordTextInput key="foo" startingLetters={startingLetters} onSave={onSave} />
+                        <AnswerInput key="foo" startingLetter={startingLetter} onSave={onSave} />
                 }
                 {
                     R.isEmpty(correctItems) ?
@@ -51,16 +52,17 @@ export class Quiz extends Component {
 
 Quiz.propTypes = {
   onSave: PropTypes.func.isRequired,
-  startingLetters: PropTypes.array.isRequired,
+  startingLetter: PropTypes.array.isRequired,
   progress: PropTypes.number,
   correctItems: PropTypes.array.isRequired,
   lastResponse: PropTypes.string
 }
 
 const mapStateToProps = (state) => {
-  const items = filterWords(state.quiz.startingLetters, state.words)
+  const items = wordsStartingWith(state.words, state.quiz.startingLetters)
+  console.log('STARTING LETTER', state.quiz.startingLetter)
   return {
-    startingLetters: state.quiz.startingLetters,
+    startingLetter: state.quiz.startingLetter,
     progress: getProgress(state.quiz.responses, items),
     correctItems: getCorrectItems(state.quiz.responses, items),
     lastResponse: R.last(state.quiz.responses)

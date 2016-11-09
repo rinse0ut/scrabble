@@ -9,14 +9,14 @@ class About extends Component {
       return (
           <div>
               <h1>About</h1>
-              <p>{ this.props.route.foo }</p>
+              <p>An App for learning two letter scrabble words.</p>
           </div>
       )
   }
 }
 
-About.propTypes = {
-  foo: PropTypes.string.isRequired
-}
+// About.propTypes = {
+//   foo: PropTypes.string.isRequired
+// }
 
 export default About

@@ -12,7 +12,7 @@ export class WordList extends Component {
         return (
             <div>
                 <h1>Word List</h1>
-                <DefinitionList items={wordsStartingWith(this.props.route.letter)} />
+                <DefinitionList items={wordsStartingWith(this.props.params.letter)} />
             </div>
         )
     }
