@@ -2,15 +2,25 @@
 #Scrabble App
 An App for learning two and three letter scrabble words using Redux, React and Ramda.
 
-##Prerequisites
-* NodeJS
-* npm
+## Usage
 
-##Installation
+```
+git clone git@github.com:rinse0ut/scrabble.git
+cd scrabble
 npm install
-
-##Tests
-npm test
-
-##Run
 npm start
+```
+
+Go to [http://localhost:3000/](http://localhost:3000/)
+
+## Tests
+Watch for changes and re-run tests:
+
+```
+npm test -- --watch
+```
+
+Run tests once and generate coverage report:
+
+```
+npm run test
