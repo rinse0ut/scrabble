@@ -7,12 +7,12 @@ import { wordsStartingWith } from '../reducers/words'
 export class WordList extends Component {
 
     render() {
-        const { words } = this.props
+        const { wordsStartingWith } = this.props
 
         return (
             <div>
                 <h1>Word List</h1>
-                <DefinitionList items={words} />
+                <DefinitionList items={wordsStartingWith(this.props.params.letter)} />
             </div>
         )
     }
@@ -22,9 +22,11 @@ WordList.propTypes = {
   words: PropTypes.func.isRequired
 }
 
+export default WordList
+
 const mapStateToProps = (state) => {
   return {
-    words: wordsStartingWith(state.words, state.quiz.letter)
+    wordsStartingWith: wordsStartingWith(state.words)
   }
 }
 
