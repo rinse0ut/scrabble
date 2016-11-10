@@ -2,21 +2,21 @@ import expect from 'expect'
 import * as actions from '../../actions'
 
 describe('Word actions', () => {
-  it('addResponse should create ADD_RESPONSE action', () => {
-    expect(actions.addResponse('FOO')).toEqual({
-      type: 'ADD_RESPONSE',
-      response: 'FOO'
+  it('addAnswer should create ADD_ANSWER action', () => {
+    expect(actions.addAnswer('FOO')).toEqual({
+      type: 'ADD_ANSWER',
+      answer: 'FOO'
     })
   })
-  it('addResponse should return an uppercase response', () => {
-    expect(actions.addResponse('bar')).toEqual({
-      type: 'ADD_RESPONSE',
-      response: 'BAR'
+  it('addAnswer should return an uppercase answer', () => {
+    expect(actions.addAnswer('bar')).toEqual({
+      type: 'ADD_ANSWER',
+      answer: 'BAR'
     })
   })
-  it('resetResponses should create RESET_RESPONSES action', () => {
-    expect(actions.resetResponses()).toEqual({
-      type: 'RESET_RESPONSES'
+  it('resetAnswers should create RESET_ANSWERS action', () => {
+    expect(actions.resetAnswers()).toEqual({
+      type: 'RESET_ANSWERS'
     })
   })
 })

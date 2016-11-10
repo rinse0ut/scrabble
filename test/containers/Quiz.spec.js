@@ -11,7 +11,7 @@ import FlashMessage from '../../components/FlashMessage'
 const initialProps = {
     startingLetter: 'A',
     progress: 0,
-    responses: ['AA', 'AB', 'AC'],
+    answers: ['AA', 'AB', 'AC'],
     correctItems: [
        {
          "word": "AA",
@@ -54,21 +54,21 @@ describe('<Quiz/>', () => {
       var { component } = setup()
       expect(component.find(ProgressBar).length).toBe(1)
     })
-    it('should not display <DefinitionList/> when there are no correct responses', () => {
+    it('should not display <DefinitionList/> when there are no correct answers', () => {
       const { component } = setup({
           startingLetter: 'A',
           progress: 0,
-          responses: [],
+          answers: [],
           correctItems: []
       })
       expect(component.find(DefinitionList).length).toBe(0)
     })
-    it('should display <DefinitionList/> containing the correct responses in <Definition/> components', () => {
+    it('should display <DefinitionList/> containing the correct answers in <Definition/> components', () => {
       const { component, props } = setup()
       expect(component.find(DefinitionList).length).toBe(1)
       expect(component.find(Definition).length).toBe(props.correctItems.length)
     })
-    it('should display <FlashMessage/> following a response', () => {
+    it('should display <FlashMessage/> following a answer', () => {
       const { component, props } = setup()
       expect(component.find(FlashMessage).length).toBe(1)
     })

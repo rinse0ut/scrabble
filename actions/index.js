@@ -15,16 +15,16 @@ export function getWords() {
   }
 }
 
-export function addResponse(response) {
+export function addAnswer(answer) {
   return {
-    type: 'ADD_RESPONSE',
-    response: response.toUpperCase()
+    type: 'ADD_ANSWER',
+    answer: answer.toUpperCase()
   }
 }
 
-export function resetResponses() {
+export function resetAnswers() {
   return {
-    type: 'RESET_RESPONSES'
+    type: 'RESET_ANSWERS'
   }
 }
 

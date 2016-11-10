@@ -6,8 +6,8 @@ import ProgressBar from '../components/ProgressBar'
 import FlashMessage from '../components/FlashMessage'
 import DefinitionList from '../components/DefinitionList'
 import Definition from '../components/Definition'
-import { addResponse, resetResponses } from '../actions'
-import { isCorrectResponse, correctItems, percentage } from '../reducers/quiz'
+import { addAnswer, resetAnswers } from '../actions'
+import { isCorrectAnswer, correctItems, percentage } from '../reducers/quiz'
 import { wordsStartingWith } from '../reducers/words'
 
 export class Quiz extends Component {
@@ -26,16 +26,16 @@ export class Quiz extends Component {
     }
 
     renderAnswerMessage() {
-        const { responses, correctItems } = this.props
-        const lastResponse = R.last(responses)
+        const { answers, correctItems } = this.props
+        const lastAnswer = R.last(answers)
 
-        if (R.isNil(lastResponse)) {
+        if (R.isNil(lastAnswer)) {
             return
         }
 
-        return isCorrectResponse(lastResponse, correctItems)
-            ? <FlashMessage status="success" message={lastResponse + ' is correct!'} />
-            : <FlashMessage status="danger" message={lastResponse + ' is incorrect!'} />
+        return isCorrectAnswer(lastAnswer, correctItems)
+            ? <FlashMessage status="success" message={lastAnswer + ' is correct!'} />
+            : <FlashMessage status="danger" message={lastAnswer + ' is incorrect!'} />
     }
 
     renderCorrectAnswers() {
@@ -67,24 +67,24 @@ Quiz.propTypes = {
   startingLetter: PropTypes.string.isRequired,
   progress: PropTypes.number,
   correctItems: PropTypes.array.isRequired,
-  responses: PropTypes.array
+  answers: PropTypes.array
 }
 
 const mapStateToProps = (state) => {
   const items = wordsStartingWith(state.words, state.quiz.startingLetter)
-  const correctAnswers = correctItems(state.quiz.responses, items)
+  const correctAnswers = correctItems(state.quiz.answers, items)
   return {
     startingLetter: state.quiz.startingLetter,
     progress: percentage(correctAnswers, items),
     correctItems: correctAnswers,
-    responses: state.quiz.responses
+    answers: state.quiz.answers
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (text) => dispatch(addResponse(text)),
-    onInit: () => dispatch(resetResponses())
+    onSave: (text) => dispatch(addAnswer(text)),
+    onInit: () => dispatch(resetAnswers())
   }
 }
 

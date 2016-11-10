@@ -1,12 +1,12 @@
 import expect from 'expect'
-import { quiz, isCorrectResponse, hasMatchingResponse, correctItems, percentage } from '../../reducers/quiz'
+import { quiz, isCorrectAnswer, hasMatchingAnswer, correctItems, percentage } from '../../reducers/quiz'
 import deepFreeze from 'deep-freeze'
 
 describe('Quiz reducer', () => {
 
     const initialState = {
       startingLetter: null,
-      responses: []
+      answers: []
     }
 
     it('should handle the initial state', () => {
@@ -16,7 +16,7 @@ describe('Quiz reducer', () => {
     it('should handle SET_STARTING_LETTER action', () => {
         var stateBefore = {
             startingLetter: [],
-            responses: []
+            answers: []
         }
         var action = {
             type: 'SET_STARTING_LETTER',
@@ -24,7 +24,7 @@ describe('Quiz reducer', () => {
         }
         var stateAfter = {
             startingLetter: 'A',
-            responses: []
+            answers: []
         }
         deepFreeze(stateBefore)
         deepFreeze(action)
@@ -32,7 +32,7 @@ describe('Quiz reducer', () => {
 
         var stateBefore = {
             startingLetter: 'A',
-            responses: []
+            answers: []
         }
         var action = {
             type: 'SET_STARTING_LETTER',
@@ -41,50 +41,50 @@ describe('Quiz reducer', () => {
         }
         var stateAfter = {
             startingLetter: 'B',
-            responses: []
+            answers: []
         }
         deepFreeze(stateBefore)
         deepFreeze(action)
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
 
-    it('should handle ADD_RESPONSE action', () => {
+    it('should handle ADD_ANSWER action', () => {
         var stateBefore = {
             startingLetter: 'A',
-            responses: []
+            answers: []
         }
         var action = {
-            type: 'ADD_RESPONSE',
-            response: 'AA'
+            type: 'ADD_ANSWER',
+            answer: 'AA'
         }
         var stateAfter = {
             startingLetter: 'A',
-            responses: ['AA']
+            answers: ['AA']
         }
         deepFreeze(stateBefore)
         deepFreeze(action)
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
 
-    it('should handle RESET_RESPONSES action', () => {
+    it('should handle RESET_ANSWERS action', () => {
         var stateBefore = {
             startingLetter: 'A',
-            responses: ['DO', 'DE', 'GO']
+            answers: ['DO', 'DE', 'GO']
         }
         var action = {
-            type: 'RESET_RESPONSES'
+            type: 'RESET_ANSWERS'
         }
         var stateAfter = {
             startingLetter: 'A',
-            responses: []
+            answers: []
         }
         deepFreeze(stateBefore)
         deepFreeze(action)
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
 
-    it('should check if a response is correct', () => {
-        var response = 'AA'
+    it('should check if a answer is correct', () => {
+        var answer = 'AA'
         var items = [
             {
                 word: "AA",
@@ -100,25 +100,25 @@ describe('Quiz reducer', () => {
             },
         ]
         var expected = true
-        var actual = isCorrectResponse(response, items)
+        var actual = isCorrectAnswer(answer, items)
 
         expect(expected).toEqual(actual)
     })
 
-    it('should check if an item has a matching response', () => {
-        const responses = ['AA', 'QI', 'ZA']
+    it('should check if an item has a matching answer', () => {
+        const answers = ['AA', 'QI', 'ZA']
         const item = {
             word: "AA",
             def: "Definition"
         }
         const expected = true
-        const actual = hasMatchingResponse(responses, item)
+        const actual = hasMatchingAnswer(answers, item)
 
         expect(expected).toEqual(actual)
     })
 
-    it('should get correct items by quiz responses', () => {
-        const responses = ['AA', 'AB']
+    it('should get correct items by quiz answers', () => {
+        const answers = ['AA', 'AB']
         const items = [
             {
                 word: "AA",
@@ -143,7 +143,7 @@ describe('Quiz reducer', () => {
                 def: "Definition"
             }
         ]
-        const actual = correctItems(responses, items)
+        const actual = correctItems(answers, items)
 
         expect(expected).toEqual(actual)
     })
