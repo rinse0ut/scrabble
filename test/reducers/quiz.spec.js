@@ -66,6 +66,23 @@ describe('Quiz reducer', () => {
         expect(quiz(stateBefore, action)).toEqual(stateAfter)
     })
 
+    it('should handle RESET_RESPONSES action', () => {
+        var stateBefore = {
+            startingLetter: 'A',
+            responses: ['DO', 'DE', 'GO']
+        }
+        var action = {
+            type: 'RESET_RESPONSES'
+        }
+        var stateAfter = {
+            startingLetter: 'A',
+            responses: []
+        }
+        deepFreeze(stateBefore)
+        deepFreeze(action)
+        expect(quiz(stateBefore, action)).toEqual(stateAfter)
+    })
+
     it('should check if a response is correct', () => {
         var response = 'AA'
         var items = [

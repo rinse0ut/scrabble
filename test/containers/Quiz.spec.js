@@ -27,7 +27,7 @@ const initialProps = {
 function setup(props = initialProps) {
   const actions = {
      onSave: expect.createSpy(),
-     onComplete: expect.createSpy()
+     onInit: expect.createSpy()
   }
 
   const component = mount(
@@ -54,16 +54,15 @@ describe('<Quiz/>', () => {
       var { component } = setup()
       expect(component.find(ProgressBar).length).toBe(1)
     })
-
-    // it('should not display <DefinitionList/> when there are no correct responses', () => {
-    //   const { component } = setup({
-    //       startingLetter: A,
-    //       progress: 0,
-    //       correctItems: []
-    //   })
-    //   expect(component.find(DefinitionList).length).toBe(0)
-    // })
-    // 
+    it('should not display <DefinitionList/> when there are no correct responses', () => {
+      const { component } = setup({
+          startingLetter: 'A',
+          progress: 0,
+          responses: [],
+          correctItems: []
+      })
+      expect(component.find(DefinitionList).length).toBe(0)
+    })
     it('should display <DefinitionList/> containing the correct responses in <Definition/> components', () => {
       const { component, props } = setup()
       expect(component.find(DefinitionList).length).toBe(1)

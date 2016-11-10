@@ -15,14 +15,20 @@ export function getWords() {
   }
 }
 
-export function addResponse(response){
+export function addResponse(response) {
   return {
     type: 'ADD_RESPONSE',
     response: response.toUpperCase()
   }
 }
 
-export function setLetter(letter){
+export function resetResponses() {
+  return {
+    type: 'RESET_RESPONSES'
+  }
+}
+
+export function setStartingLetter(letter) {
   return {
     type: 'SET_STARTING_LETTER',
     letter: letter

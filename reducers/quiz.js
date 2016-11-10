@@ -14,6 +14,9 @@ export const quiz = (state = initialState, action) => {
         case 'ADD_RESPONSE':
             return R.assoc('responses', R.append(action.response, state.responses), state)
 
+        case 'RESET_RESPONSES':
+            return R.assoc('responses', [], state)
+
         default:
             return state
     }

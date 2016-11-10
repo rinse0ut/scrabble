@@ -16,8 +16,6 @@ import { getWords, letterIndex } from './actions'
 import './css/bootstrap.css'
 import './css/style.css'
 
-import WordSectionList from './containers/WordSectionList'
-
 const middleware = process.env.NODE_ENV === 'production' ?
   [ thunk ] :
   [ thunk, logger() ]

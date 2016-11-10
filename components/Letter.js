@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import R from 'ramda'
-import letters from '../stores/letters.json'
+import letters from '../api/letters.json'
 
 class Letter extends Component {
   constructor(props) {

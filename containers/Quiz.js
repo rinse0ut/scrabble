@@ -6,45 +6,56 @@ import ProgressBar from '../components/ProgressBar'
 import FlashMessage from '../components/FlashMessage'
 import DefinitionList from '../components/DefinitionList'
 import Definition from '../components/Definition'
-import { addResponse } from '../actions'
-import { isCorrectResponse, correctItems, progress } from '../reducers/quiz'
+import { addResponse, resetResponses } from '../actions'
+import { isCorrectResponse, correctItems, percentage } from '../reducers/quiz'
 import { wordsStartingWith } from '../reducers/words'
-
 
 export class Quiz extends Component {
 
-    renderFlashMessage() {
+    constructor(props) {
+        super(props);
+        props.onInit()
+    }
+
+    renderActions() {
+        const { startingLetter, progress, onSave } = this.props
+
+        return (progress !== 100)
+            ? <AnswerInput startingLetter={startingLetter} onSave={onSave} />
+            : <FlashMessage status="success" message="Quiz complete!" />
+    }
+
+    renderAnswerMessage() {
         const { responses, correctItems } = this.props
-
-        if (responses === undefined) return
-
         const lastResponse = R.last(responses)
+
+        if (R.isNil(lastResponse)) {
+            return
+        }
 
         return isCorrectResponse(lastResponse, correctItems)
             ? <FlashMessage status="success" message={lastResponse + ' is correct!'} />
             : <FlashMessage status="danger" message={lastResponse + ' is incorrect!'} />
     }
 
+    renderCorrectAnswers() {
+        const { correctItems } = this.props
+
+        return R.isEmpty(correctItems)
+            ? null
+            : <DefinitionList items={correctItems} />
+    }
+
     render() {
         const { startingLetter, progress, correctItems, onSave } = this.props
-
-        // console.log('QUIZ PROPS', this.props)
 
         return (
             <div>
                 <h1>Scrabble Quiz</h1>
                 <ProgressBar progress={progress} />
-                { this.renderFlashMessage() }
-                {
-                    progress === 100 ?
-                        <button className="next" onClick={this.next.bind(this)}>Continue</button> :
-                        <AnswerInput startingLetter={startingLetter} onSave={onSave} />
-                }
-                {
-                    R.isEmpty(correctItems) ?
-                        null :
-                        <DefinitionList items={correctItems} />
-                }
+                { this.renderAnswerMessage() }
+                { this.renderActions() }
+                { this.renderCorrectAnswers() }
             </div>
         )
     }
@@ -52,47 +63,30 @@ export class Quiz extends Component {
 
 Quiz.propTypes = {
   onSave: PropTypes.func.isRequired,
-  // isCorrectResponse: PropTypes.func.isRequired,
+  onInit: PropTypes.func.isRequired,
   startingLetter: PropTypes.string.isRequired,
   progress: PropTypes.number,
   correctItems: PropTypes.array.isRequired,
-  responses: PropTypes.string
+  responses: PropTypes.array
 }
-
-// const mapStateToProps =
 
 const mapStateToProps = (state) => {
   const items = wordsStartingWith(state.words, state.quiz.startingLetter)
-  const correctItems = correctItems(state.quiz.responses, items)
+  const correctAnswers = correctItems(state.quiz.responses, items)
   return {
     startingLetter: state.quiz.startingLetter,
-    progress: percentage(correctItems, items),
-    correctItems: correctItems,
+    progress: percentage(correctAnswers, items),
+    correctItems: correctAnswers,
     responses: state.quiz.responses
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSave: (text) => {
-        dispatch(addResponse(text))
-    }
+    onSave: (text) => dispatch(addResponse(text)),
+    onInit: () => dispatch(resetResponses())
   }
 }
-
-// onComplete: (wordFilter, wordList) => {
-    // const findNextLetter = letter => {
-    //     let words = []
-    //     while (words.length === 0) {
-    //        letter = String.fromCharCode(letter.charCodeAt(0) + 1)
-    //        words = filterWords( { letters: [wordFilter.letters[0], letter] }, wordList)
-    //
-    //     }
-    //     return letter
-    // }
-    //
-    // dispatch(setLetter(1, findNextLetter(wordFilter.letters[1])))
-// }
 
 export default connect(
   mapStateToProps,

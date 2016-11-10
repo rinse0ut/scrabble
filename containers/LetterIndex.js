@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import R from 'ramda'
 import List from '../components/List'
 import { letterIndex } from '../reducers/words'
-import { setLetter } from '../actions'
+import { setStartingLetter } from '../actions'
 
 export class LetterIndex extends Component {
 
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: (letter) => {
-            dispatch(setLetter(letter))
+            dispatch(setStartingLetter(letter))
         }
     }
 }
