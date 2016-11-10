@@ -5,9 +5,9 @@ const listItem   = (item, key) => <li key ={key}>{item}</li>
 const mapIndexed = R.addIndex(R.map)
 const list       = mapIndexed(listItem)
 
-const List = ({ items }) => {
+const List = ({ items, className }) => {
     return (
-        <ul>
+        <ul className={className}>
             {
                 list(items)
             }

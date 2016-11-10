@@ -22,8 +22,6 @@ WordList.propTypes = {
   words: PropTypes.func.isRequired
 }
 
-export default WordList
-
 const mapStateToProps = (state) => {
   return {
     wordsStartingWith: wordsStartingWith(state.words)

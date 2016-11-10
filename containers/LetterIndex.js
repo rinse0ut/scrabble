@@ -9,7 +9,6 @@ import { setStartingLetter } from '../actions'
 export class LetterIndex extends Component {
 
     handleClick(item) {
-        // console.log('log handleClick', item)
         this.props.onClick(item)
     }
 
@@ -17,7 +16,7 @@ export class LetterIndex extends Component {
         const { letters, route } = this.props
         const link = item => <Link to={'/' + route.path + '/letter/' + item} onClick={() => this.handleClick(item)}>{item}</Link>
         const menuItems = R.map(link)
-        // console.log(this.props)
+        
         return (
             <div>
                 <h1>Letter Index</h1>
