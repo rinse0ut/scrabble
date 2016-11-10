@@ -19,7 +19,7 @@ Go to [http://localhost:3000/](http://localhost:3000/)
 Watch for changes and re-run tests:
 
 ```
-npm test -- --watch
+npm run test:watch
 ```
 
 Run tests once and generate coverage report:
