@@ -27,13 +27,6 @@ export class LetterIndex extends Component {
     }
 }
 
-export default LetterIndex
-
-// const mapStateToProps = R.assoc('letters', ['Z'])
-// const props = (letters) => { letters: letters }
-// const mapStateToProps = R.compose(props, letterIndex, R.pluck('words'))
-// const mapStateToProps = R.compose(R.assoc('letters', R.__, {}), letterIndex)
-
 const mapStateToProps = (state) => {
   return {
       letters: letterIndex(state.words)
