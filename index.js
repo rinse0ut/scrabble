@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import Quiz from './containers/Quiz'
 import LetterIndex from './containers/LetterIndex'
@@ -18,7 +18,7 @@ import './css/style.css'
 
 const middleware = process.env.NODE_ENV === 'production' ?
   [ thunk ] :
-  [ thunk, logger() ]
+  [ thunk, createLogger() ]
 
 const store = createStore(
   scrabbleApp,
